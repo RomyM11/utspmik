@@ -3,17 +3,21 @@ $q = $_GET['q'] ?? '';
 $q_lower = strtolower($q);
 
 $redirects = [
-  'Poli Umum' => 'poliumum.php',
-  'Poli Gigi' => 'poligigi.php',
-  'Poli Anak' => 'polianak.php',
+  'poli umum' => 'poliumum.php',
+  'poli gigi' => 'poligigi.php',
+  'poli anak' => 'polianak.php',
 ];
 
-if (array_key_exists($q_lower, array_change_key_case($redirects))) {
-  header("Location: " . $redirects[$q_lower]);
-  exit;
+$found = false;
+
+foreach ($redirects as $key => $url) {
+  if (strpos(strtolower($key), $q_lower) !== false || strpos($q_lower, strtolower($key)) !== false) {
+    header("Location: " . $url);
+    $found = true;
+    exit;
+  }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
